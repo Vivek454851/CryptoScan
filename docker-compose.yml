@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: cryptoscan-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: cryptoscan
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - cryptoscan-network
+
+  # ML API Service
+  ml-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.ml-api
+    container_name: cryptoscan-ml-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - ./ml_api:/app
+    depends_on:
+      - mongodb
+    networks:
+      - cryptoscan-network
+
+  # Frontend Service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: cryptoscan-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://admin:password123@mongodb:27017/cryptoscan?authSource=admin
+      - NEXTAUTH_SECRET=your-production-secret-key-change-this
+      - NEXTAUTH_URL=http://localhost:3000
+      - ML_API_URL=http://ml-api:8000
+    depends_on:
+      - ml-api
+      - mongodb
+    networks:
+      - cryptoscan-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  cryptoscan-network:
+    driver: bridge

@@ -12,7 +12,7 @@ export default function DashboardPage() {
         </div>
         <div className="rounded-xl bg-white p-6 shadow hover:shadow-lg transition">
           <p className="text-sm text-gray-500">Model Accuracy</p>
-          <p className="mt-2 text-2xl font-bold text-green-600">94.2%</p>
+          <p className="mt-2 text-2xl font-bold text-green-600">75%</p>
         </div>
         <div className="rounded-xl bg-white p-6 shadow hover:shadow-lg transition">
           <p className="text-sm text-gray-500">Avg Response</p>

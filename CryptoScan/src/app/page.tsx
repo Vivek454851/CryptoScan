@@ -57,15 +57,15 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-6 text-gray-900">
               <div>
                 <p className="text-sm text-gray-500">Model Accuracy</p>
-                <p className="text-2xl font-bold text-green-600">94.2%</p>
+                <p className="text-2xl font-bold text-green-600">78.22%</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Avg Response</p>
-                <p className="text-2xl font-bold text-blue-600">1.2s</p>
+                <p className="text-2xl font-bold text-blue-600">1.8s</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Algorithms</p>
-                <p className="text-2xl font-bold">12+</p>
+                <p className="text-2xl font-bold">8</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">Analyses</p>
